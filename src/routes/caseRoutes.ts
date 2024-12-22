@@ -7,19 +7,24 @@ const router = Router();
  * @swagger
  * components:
  *   schemas:
- *     Case:
+ *     cases:
  *       type: object
  *       properties:
  *         id:
  *           type: integer
  *         title:
  *           type: string
- *         description:
+ *         content:
+ *           type: string
+ *         year:
+ *           type: string
+ *         month:
+ *           type: string
+ *         url:
+ *           type: string
+ *         case_date:
  *           type: string
  *         createdAt:
- *           type: string
- *           format: date-time
- *         updatedAt:
  *           type: string
  *           format: date-time
  */
@@ -39,7 +44,15 @@ const router = Router();
  *             properties:
  *               title:
  *                 type: string
- *               description:
+ *               content:
+ *                 type: string
+ *               year:
+ *                 type: string
+ *               month:
+ *                 type: string
+ *               case_date:
+ *                 type: string
+ *               url:
  *                 type: string
  *     responses:
  *       201:
@@ -47,7 +60,7 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Case'
+ *               $ref: '#/components/schemas/cases'
  */
 router.post('/', caseController.createCase);
 
@@ -65,7 +78,7 @@ router.post('/', caseController.createCase);
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Case'
+ *                 $ref: '#/components/schemas/cases'
  */
 router.get('/', caseController.getAllCases);
 
@@ -87,7 +100,7 @@ router.get('/', caseController.getAllCases);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Case'
+ *               $ref: '#/components/schemas/cases'
  *       404:
  *         description: Case not found
  */

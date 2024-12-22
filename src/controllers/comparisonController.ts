@@ -16,8 +16,8 @@ class ComparisonController {
 			const { case1Id, case2Id } = validation.data;
 
 			const [case1, case2] = await Promise.all([
-				prisma.case.findUnique({ where: { id: case1Id } }),
-				prisma.case.findUnique({ where: { id: case2Id } }),
+				prisma.cases.findUnique({ where: { id: case1Id } }),
+				prisma.cases.findUnique({ where: { id: case2Id } }),
 			]);
 
 			if (!case1 || !case2) {
@@ -27,11 +27,11 @@ class ComparisonController {
 			}
 
 			const { differences, result } = await aiService.compareCases(
-				case1.description,
-				case2.description
+				case1.content,
+				case2.content
 			);
 
-			const comparison = await prisma.comparison.create({
+			const comparison = await prisma.comparisons.create({
 				data: {
 					case1Id,
 					case2Id,
@@ -50,7 +50,7 @@ class ComparisonController {
 	async getComparisonById(req: Request, res: Response) {
 		try {
 			const { id } = req.params;
-			const comparison = await prisma.comparison.findUnique({
+			const comparison = await prisma.comparisons.findUnique({
 				where: { id: Number(id) },
 			});
 

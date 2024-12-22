@@ -7,32 +7,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Case {
+model cases {
   id          Int      @id @default(autoincrement())
-  title       String
-  description String   @db.Text
+  title       String   @db.Text
+  year        String
+  month       String
+  case_date   String
+  url         String   @db.Text
+  content     String   @db.LongText
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  chats       Chat[]
+  chats       chats[]
 }
 
-model Comparison {
+model comparisons {
   id           Int      @id @default(autoincrement())
   case1Id      Int
   case2Id      Int
   differences  String   @db.Text
   result       String   @db.Text
   createdAt    DateTime @default(now())
-  chats        Chat[]
+  chats        chats[]
 }
 
-model Chat {
+model chats {
   id            Int         @id @default(autoincrement())
   message       String      @db.Text
   response      String      @db.Text
-  case          Case?       @relation(fields: [caseId], references: [id])
+  case          cases?       @relation(fields: [caseId], references: [id])
   caseId        Int?
-  comparison    Comparison? @relation(fields: [comparisonId], references: [id])
+  comparison    comparisons? @relation(fields: [comparisonId], references: [id])
   comparisonId  Int?
   createdAt     DateTime    @default(now())
 } 

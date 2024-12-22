@@ -2,7 +2,11 @@ import { z } from 'zod';
 
 export const CreateCaseSchema = z.object({
   title: z.string().min(1),
-  description: z.string().min(1),
+  content: z.string().min(1),
+  case_date: z.string().min(1),
+  year: z.string().min(1),
+  month: z.string().min(1),
+  url: z.string().min(1),
 });
 
 export const CompareSchema = z.object({

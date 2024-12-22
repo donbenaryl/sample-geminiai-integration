@@ -17,20 +17,20 @@ class ChatController {
 
       let context = '';
       if (comparisonId) {
-        const comparison = await prisma.comparison.findUnique({
+        const comparison = await prisma.comparisons.findUnique({
           where: { id: comparisonId },
         });
         context = `Previous comparison:\nDifferences: ${comparison?.differences}\nResult: ${comparison?.result}`;
       } else if (caseId) {
-        const case_ = await prisma.case.findUnique({
+        const case_ = await prisma.cases.findUnique({
           where: { id: caseId },
         });
-        context = `Case: ${case_?.description}`;
+        context = `Case: ${case_?.content}`;
       }
 
       const response = await aiService.continueChat(context, message);
 
-      const chat = await prisma.chat.create({
+      const chat = await prisma.chats.create({
         data: {
           message,
           response,
